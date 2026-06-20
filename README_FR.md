@@ -7,7 +7,7 @@
 **Pas un linter. Pas un scanner. Un collègue qui ne cesse jamais de penser.**
 
 [![Rust](https://img.shields.io/badge/Rust-1.75+-orange?logo=rust)](https://www.rust-lang.org/)
-[![License](https://img.shields.io/badge/License-MIT%2FApache--2.0-blue)](LICENSE)
+[![License: AGPL-3.0](https://img.shields.io/badge/License-AGPL%20v3-blue.svg)](LICENSE)
 [![Phase](https://img.shields.io/badge/Phase-1%20MVP-green)]()
 [![PRs Welcome](https://img.shields.io/badge/PRs-bienvenus-brightgreen.svg)](CONTRIBUTING.md)
 [![Issues](https://img.shields.io/github/issues/karlalbert152-sys/gatkeeper)](https://github.com/karlalbert152-sys/gatkeeper/issues)
@@ -218,11 +218,13 @@ Nous adorons les contributions ! GatKeeper est un projet open-source et nous acc
 
 ## 📜 Licence
 
-Sous licence :
-- [MIT License](LICENSE)
-- [Apache License, Version 2.0](LICENSE)
+Ce projet est sous licence **GNU Affero General Public License v3.0** — voir le fichier [LICENSE](LICENSE) pour les détails.
 
-à votre choix.
+Cela signifie :
+- ✅ Vous pouvez utiliser, modifier et distribuer ce logiciel
+- ✅ Vous pouvez l'utiliser commercialement
+- ⚠️ Si vous le modifiez et le distribuez, vous **devez** publier vos modifications sous AGPLv3
+- ⚠️ Si vous l'utilisez comme service réseau (SaaS), vous **devez** fournir le code source aux utilisateurs
 
 ---
 

@@ -186,7 +186,7 @@ Documentation improvements are always welcome:
 
 ## 📜 License
 
-By contributing, you agree that your contributions will be licensed under the [MIT License](LICENSE) or [Apache License 2.0](LICENSE).
+By contributing, you agree that your contributions will be licensed under the [GNU Affero General Public License v3.0](LICENSE).
 
 ## 🙏 Thank You!
 
