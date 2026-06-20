@@ -1,0 +1,39 @@
+[session]
+organisation = "Unknown"
+project = "unknown"
+version = "0.0.0"
+timestamp = "2026-01-01T00:00:00Z"
+agents_utilises = []
+lignes_analysees = 0
+scenarios_sub = 0
+duree_analyse = "0s"
+
+[risk_score]
+global = 100/100
+securite = 100/100
+performance = 100/100
+compliance = 100/100
+tendance = "stable"
+
+# [[findings.critical]]
+# id = "GAT-CRIT-001"
+# agent = "SecurityAgent"
+# fichier = "src/main.rs"
+# lignes = [1]
+# type = "example"
+# cvss_score = 0.0
+# description = "Example finding"
+# correction = "Fix it"
+# effort_correction = "5 minutes"
+
+# [[subconscious.dreams]]
+# id = "DREAM-001"
+# couche = "threat"
+# decouverte_a = "03:47 AM"
+# horizon = "7 jours"
+# probabilite = 0.0
+# impact = "example"
+# condition = "example"
+
+# [subconscious.intuitions]
+# items = []

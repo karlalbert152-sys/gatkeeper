@@ -1,0 +1,17 @@
+[package]
+name = "gatkeeper-subconscious"
+version.workspace = true
+edition.workspace = true
+description = "Subconscious Engine — continuous background threat simulation"
+
+[dependencies]
+gatkeeper-core = { path = "../gatkeeper-core" }
+gatkeeper-agents = { path = "../gatkeeper-agents" }
+gatkeeper-dna = { path = "../gatkeeper-dna" }
+tokio.workspace = true
+async-trait.workspace = true
+serde.workspace = true
+thiserror.workspace = true
+anyhow.workspace = true
+tracing.workspace = true
+chrono.workspace = true

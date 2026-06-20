@@ -1,0 +1,14 @@
+[package]
+name = "gatkeeper-core"
+version.workspace = true
+edition.workspace = true
+description = "GatKeeper core types, config, and report generation"
+
+[dependencies]
+serde.workspace = true
+serde_json.workspace = true
+toml.workspace = true
+thiserror.workspace = true
+anyhow.workspace = true
+chrono.workspace = true
+uuid.workspace = true

@@ -1,0 +1,13 @@
+[package]
+name = "gatkeeper-parser"
+version.workspace = true
+edition.workspace = true
+description = "Multi-language code parser using Tree-sitter"
+
+[dependencies]
+gatkeeper-core = { path = "../gatkeeper-core" }
+tree-sitter.workspace = true
+thiserror.workspace = true
+anyhow.workspace = true
+tracing.workspace = true
+glob = "0.3"
