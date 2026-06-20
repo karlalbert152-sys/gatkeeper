@@ -9,11 +9,17 @@
 [![Rust](https://img.shields.io/badge/Rust-1.75+-orange?logo=rust)](https://www.rust-lang.org/)
 [![License](https://img.shields.io/badge/License-MIT%2FApache--2.0-blue)](LICENSE)
 [![Phase](https://img.shields.io/badge/Phase-1%20MVP-green)]()
+[![PRs Welcome](https://img.shields.io/badge/PRs-bienvenus-brightgreen.svg)](CONTRIBUTING.md)
+[![Issues](https://img.shields.io/github/issues/karlalbert152-sys/gatkeeper)](https://github.com/karlalbert152-sys/gatkeeper/issues)
+[![Stars](https://img.shields.io/github/stars/karlalbert152-sys/gatkeeper)](https://github.com/karlalbert152-sys/gatkeeper/stargazers)
+[![Discord](https://img.shields.io/discord/1234567890?label=Discord&logo=discord)](https://discord.gg/gatkeeper)
 
 ---
 
-[📄 Document d'Analyse (FR)](docs/GatKeeper_Analysis_FR.pdf) •
-[🇬🇧 English](README.md)
+[📄 Analyse (FR)](docs/GatKeeper_Analysis_FR.pdf) •
+[🇬🇧 English](README.md) •
+[🤝 Contribuer](CONTRIBUTING.md) •
+[💬 Discord](https://discord.gg/gatkeeper)
 
 </div>
 
@@ -195,7 +201,18 @@ gatkeeper/
 
 ## 🤝 Contribuer
 
-Les contributions sont les bienvenues ! Veuillez lire [CONTRIBUTING.md](CONTRIBUTING.md) avant de soumettre des PRs.
+Nous adorons les contributions ! GatKeeper est un projet open-source et nous accueillons les développeurs de tous niveaux.
+
+**Façons de contribuer :**
+- 🐛 [Signaler des bugs](https://github.com/karlalbert152-sys/gatkeeper/issues/new?template=bug_report.md)
+- 💡 [Proposer des fonctionnalités](https://github.com/karlalbert152-sys/gatkeeper/issues/new?template=feature_request.md)
+- 📝 [Améliorer la doc](https://github.com/karlalbert152-sys/gatkeeper/issues/new?template=documentation.md)
+- 💻 Soumettre un Pull Request
+- ⭐ Étoiler le repo pour montrer votre soutien
+
+**Bonnes premières issues :** Cherchez les labels [`good first issue`](https://github.com/karlalbert152-sys/gatkeeper/labels/good%20first%20issue).
+
+👉 **Lisez [CONTRIBUTING.md](CONTRIBUTING.md)** pour les instructions de setup et les guidelines.
 
 ---
 

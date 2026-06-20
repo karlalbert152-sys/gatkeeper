@@ -10,11 +10,17 @@
 [![License](https://img.shields.io/badge/License-MIT%2FApache--2.0-blue)](LICENSE)
 [![Phase](https://img.shields.io/badge/Phase-1%20MVP-green)]()
 [![CI](https://img.shields.io/badge/CI-GitHub%20Actions-yellow?logo=github-actions)](.github/workflows/ci.yml)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
+[![Issues](https://img.shields.io/github/issues/karlalbert152-sys/gatkeeper)](https://github.com/karlalbert152-sys/gatkeeper/issues)
+[![Stars](https://img.shields.io/github/stars/karlalbert152-sys/gatkeeper)](https://github.com/karlalbert152-sys/gatkeeper/stargazers)
+[![Discord](https://img.shields.io/discord/1234567890?label=Discord&logo=discord)](https://discord.gg/gatkeeper)
 
 ---
 
-[GatKeeper_Analysis_EN.pdf](docs/GatKeeper_Analysis_EN.pdf) •
-[Français](README_FR.md)
+[📄 Analysis (EN)](docs/GatKeeper_Analysis_EN.pdf) •
+[🇫🇷 Français](README_FR.md) •
+[🤝 Contributing](CONTRIBUTING.md) •
+[💬 Discord](https://discord.gg/gatkeeper)
 
 </div>
 
@@ -196,7 +202,18 @@ gatkeeper/
 
 ## 🤝 Contributing
 
-Contributions welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) before submitting PRs.
+We love contributions! GatKeeper is an open-source project and we welcome developers of all skill levels.
+
+**Ways to contribute:**
+- 🐛 [Report bugs](https://github.com/karlalbert152-sys/gatkeeper/issues/new?template=bug_report.md)
+- 💡 [Request features](https://github.com/karlalbert152-sys/gatkeeper/issues/new?template=feature_request.md)
+- 📝 [Improve docs](https://github.com/karlalbert152-sys/gatkeeper/issues/new?template=documentation.md)
+- 💻 Submit a Pull Request
+- ⭐ Star the repo to show support
+
+**Good first issues:** Look for [`good first issue`](https://github.com/karlalbert152-sys/gatkeeper/labels/good%20first%20issue) labels.
+
+👉 **Read [CONTRIBUTING.md](CONTRIBUTING.md)** for setup instructions and guidelines.
 
 ---
 
