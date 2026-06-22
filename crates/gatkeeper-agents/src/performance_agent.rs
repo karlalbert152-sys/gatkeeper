@@ -49,7 +49,13 @@ fn check_n_plus_one(path: &str, source: &str) -> Vec<Finding> {
             );
         }
 
-        if line.contains("SELECT") && line.contains("WHERE") && source.lines().nth(i + 1).is_some_and(|l| l.contains("SELECT")) {
+        if line.contains("SELECT")
+            && line.contains("WHERE")
+            && source
+                .lines()
+                .nth(i + 1)
+                .is_some_and(|l| l.contains("SELECT"))
+        {
             findings.push(
                 Finding::new(
                     "PerformanceAgent",
@@ -74,21 +80,23 @@ fn check_memory_leaks(path: &str, source: &str) -> Vec<Finding> {
     for (i, line) in source.lines().enumerate() {
         let line_num = i as u32 + 1;
 
-        if line.contains("Vec::new()") && line.contains("push")
-            && (source.contains("loop") || source.contains("while")) {
-                findings.push(
-                    Finding::new(
-                        "PerformanceAgent",
-                        Severity::Medium,
-                        path,
-                        "unbounded_growth",
-                        "Vec growth inside loop without capacity limit",
-                    )
-                    .with_lines(line_num, line_num)
-                    .with_cvss(4.0)
-                    .with_correction("Set initial capacity or add size limit", "15 minutes"),
-                );
-            }
+        if line.contains("Vec::new()")
+            && line.contains("push")
+            && (source.contains("loop") || source.contains("while"))
+        {
+            findings.push(
+                Finding::new(
+                    "PerformanceAgent",
+                    Severity::Medium,
+                    path,
+                    "unbounded_growth",
+                    "Vec growth inside loop without capacity limit",
+                )
+                .with_lines(line_num, line_num)
+                .with_cvss(4.0)
+                .with_correction("Set initial capacity or add size limit", "15 minutes"),
+            );
+        }
 
         if line.contains("Box::leak") || line.contains("std::mem::forget") {
             findings.push(
@@ -101,7 +109,10 @@ fn check_memory_leaks(path: &str, source: &str) -> Vec<Finding> {
                 )
                 .with_lines(line_num, line_num)
                 .with_cvss(6.0)
-                .with_correction("Remove explicit leak, use proper lifecycle management", "30 minutes"),
+                .with_correction(
+                    "Remove explicit leak, use proper lifecycle management",
+                    "30 minutes",
+                ),
             );
         }
     }
@@ -181,7 +192,10 @@ fn check_large_allocations(path: &str, source: &str) -> Vec<Finding> {
                 )
                 .with_lines(line_num, line_num)
                 .with_cvss(4.0)
-                .with_correction("Add file size check or use BufReader with limit", "30 minutes"),
+                .with_correction(
+                    "Add file size check or use BufReader with limit",
+                    "30 minutes",
+                ),
             );
         }
     }

@@ -22,10 +22,7 @@ impl Default for RiskScore {
 }
 
 impl RiskScore {
-    pub fn compute(
-        findings: &[crate::finding::Finding],
-        prev: Option<&RiskScore>,
-    ) -> Self {
+    pub fn compute(findings: &[crate::finding::Finding], prev: Option<&RiskScore>) -> Self {
         let mut security_penalty = 0u32;
         let mut performance_penalty = 0u32;
         let mut compliance_penalty = 0u32;
@@ -44,8 +41,7 @@ impl RiskScore {
                 }
                 "LogicAgent" => {
                     security_penalty = security_penalty.saturating_add(penalty / 2);
-                    performance_penalty =
-                        performance_penalty.saturating_add(penalty / 2);
+                    performance_penalty = performance_penalty.saturating_add(penalty / 2);
                 }
                 _ => {}
             }

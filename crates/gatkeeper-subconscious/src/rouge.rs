@@ -69,14 +69,16 @@ impl RougeLayer {
         });
         if has_auth_issues {
             intuitions.push(
-                "Zone de faiblesse: authentification — cible prioritaire pour attaquants".to_string(),
+                "Zone de faiblesse: authentification — cible prioritaire pour attaquants"
+                    .to_string(),
             );
         }
 
         let has_crypto = findings.iter().any(|f| f.finding_type.contains("crypto"));
         if has_crypto {
             intuitions.push(
-                "Risque cryptographique: algorithmes faibles détectés — chiffrement compromettable".to_string(),
+                "Risque cryptographique: algorithmes faibles détectés — chiffrement compromettable"
+                    .to_string(),
             );
         }
 

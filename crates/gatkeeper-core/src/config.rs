@@ -45,8 +45,7 @@ pub struct OutputConfig {
     pub directory: String,
 }
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
-#[derive(Default)]
+#[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct AgentsConfig {
     #[serde(default)]
     pub security: AgentDetail,
@@ -103,7 +102,6 @@ impl Default for SupplyChainConfig {
         }
     }
 }
-
 
 impl Default for GatKeeperConfig {
     fn default() -> Self {
@@ -165,10 +163,8 @@ impl GatKeeperConfig {
 
     pub fn save(&self, project_root: &Path) -> Result<(), ConfigError> {
         let config_path = project_root.join("gatkeeper.toml");
-        let content =
-            toml::to_string_pretty(self).map_err(ConfigError::Serialize)?;
-        std::fs::write(&config_path, content)
-            .map_err(|e| ConfigError::Io(config_path, e))?;
+        let content = toml::to_string_pretty(self).map_err(ConfigError::Serialize)?;
+        std::fs::write(&config_path, content).map_err(|e| ConfigError::Io(config_path, e))?;
         Ok(())
     }
 

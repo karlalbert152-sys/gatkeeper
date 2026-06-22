@@ -9,9 +9,27 @@ fn test_subconscious_engine() {
     std::fs::write(dir.join("main.rs"), "fn main() {}").unwrap();
 
     let findings = vec![
-        Finding::new("SecurityAgent", Severity::Critical, "f.rs", "code_injection", "eval"),
-        Finding::new("SecurityAgent", Severity::High, "f.rs", "auth_password", "password check"),
-        Finding::new("PerformanceAgent", Severity::Medium, "f.rs", "n_plus_one", "N+1 query"),
+        Finding::new(
+            "SecurityAgent",
+            Severity::Critical,
+            "f.rs",
+            "code_injection",
+            "eval",
+        ),
+        Finding::new(
+            "SecurityAgent",
+            Severity::High,
+            "f.rs",
+            "auth_password",
+            "password check",
+        ),
+        Finding::new(
+            "PerformanceAgent",
+            Severity::Medium,
+            "f.rs",
+            "n_plus_one",
+            "N+1 query",
+        ),
     ];
 
     let result = SubconsciousEngine::run_cycle(&dir, &findings, 24);
@@ -40,9 +58,13 @@ fn test_rouge_layer() {
 fn test_jaune_layer() {
     use gatkeeper_subconscious::jaune::JauneLayer;
 
-    let findings = vec![
-        Finding::new("PerformanceAgent", Severity::High, "f.rs", "n_plus_one", "desc"),
-    ];
+    let findings = vec![Finding::new(
+        "PerformanceAgent",
+        Severity::High,
+        "f.rs",
+        "n_plus_one",
+        "desc",
+    )];
 
     let result = JauneLayer::analyze(Path::new("."), &findings);
     assert!(!result.dreams.is_empty());

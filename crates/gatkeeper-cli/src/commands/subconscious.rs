@@ -1,6 +1,6 @@
+use gatkeeper_agents::all_agents;
 use gatkeeper_core::GatKeeperConfig;
 use gatkeeper_parser::parse_file;
-use gatkeeper_agents::all_agents;
 use gatkeeper_subconscious::SubconsciousEngine;
 use std::path::Path;
 
@@ -47,7 +47,10 @@ pub fn execute(project_root: &Path, projection_hours: u32) -> anyhow::Result<()>
         for dream in &result.dreams {
             println!(
                 "  [{}] {} — prob: {:.0}%, horizon: {}",
-                dream.id, dream.couche, dream.probabilite * 100.0, dream.horizon
+                dream.id,
+                dream.couche,
+                dream.probabilite * 100.0,
+                dream.horizon
             );
             println!("    Impact: {}", dream.impact);
             println!("    Condition: {}", dream.condition);

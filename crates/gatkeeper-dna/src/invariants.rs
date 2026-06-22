@@ -94,10 +94,15 @@ fn extract_api_invariants(path: &str, source: &str) -> Vec<Invariant> {
     let mut invariants = Vec::new();
 
     for (i, line) in source.lines().enumerate() {
-        if line.contains("#[get]") || line.contains("#[post]") || line.contains("#[put]") || line.contains("#[delete]") {
+        if line.contains("#[get]")
+            || line.contains("#[post]")
+            || line.contains("#[put]")
+            || line.contains("#[delete]")
+        {
             invariants.push(Invariant {
                 name: "API endpoint".to_string(),
-                rule: "HTTP endpoint must validate input and return proper status codes".to_string(),
+                rule: "HTTP endpoint must validate input and return proper status codes"
+                    .to_string(),
                 file: path.to_string(),
                 line: Some(i as u32 + 1),
             });

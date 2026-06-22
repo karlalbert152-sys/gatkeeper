@@ -17,7 +17,9 @@ impl Agent for SupplyChainAgent {
                 findings.extend(check_cargo_deps(&file.path));
             } else if file.path.ends_with("package.json") {
                 findings.extend(check_npm_deps(&file.path));
-            } else if file.path.ends_with("requirements.txt") || file.path.ends_with("pyproject.toml") {
+            } else if file.path.ends_with("requirements.txt")
+                || file.path.ends_with("pyproject.toml")
+            {
                 findings.extend(check_python_deps(&file.path));
             } else if file.path.ends_with("go.mod") {
                 findings.extend(check_go_deps(&file.path));
@@ -64,7 +66,10 @@ fn check_cargo_deps(path: &str) -> Vec<Finding> {
                 )
                 .with_lines(line_num, line_num)
                 .with_cvss(2.0)
-                .with_correction("Consider publishing to crates.io for reproducibility", "1 hour"),
+                .with_correction(
+                    "Consider publishing to crates.io for reproducibility",
+                    "1 hour",
+                ),
             );
         }
     }
@@ -126,7 +131,12 @@ fn check_python_deps(path: &str) -> Vec<Finding> {
     for (i, line) in source.lines().enumerate() {
         let line_num = i as u32 + 1;
 
-        if !line.trim().is_empty() && !line.starts_with('#') && !line.contains("==") && !line.contains(">=") && !line.contains("<=") {
+        if !line.trim().is_empty()
+            && !line.starts_with('#')
+            && !line.contains("==")
+            && !line.contains(">=")
+            && !line.contains("<=")
+        {
             findings.push(
                 Finding::new(
                     "SupplyChainAgent",

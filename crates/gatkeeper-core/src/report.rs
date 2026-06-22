@@ -69,11 +69,31 @@ impl GatReport {
 
     pub fn finding_counts(&self) -> (usize, usize, usize, usize, usize) {
         use crate::finding::Severity;
-        let c = self.findings.iter().filter(|f| f.severity == Severity::Critical).count();
-        let h = self.findings.iter().filter(|f| f.severity == Severity::High).count();
-        let m = self.findings.iter().filter(|f| f.severity == Severity::Medium).count();
-        let l = self.findings.iter().filter(|f| f.severity == Severity::Low).count();
-        let i = self.findings.iter().filter(|f| f.severity == Severity::Info).count();
+        let c = self
+            .findings
+            .iter()
+            .filter(|f| f.severity == Severity::Critical)
+            .count();
+        let h = self
+            .findings
+            .iter()
+            .filter(|f| f.severity == Severity::High)
+            .count();
+        let m = self
+            .findings
+            .iter()
+            .filter(|f| f.severity == Severity::Medium)
+            .count();
+        let l = self
+            .findings
+            .iter()
+            .filter(|f| f.severity == Severity::Low)
+            .count();
+        let i = self
+            .findings
+            .iter()
+            .filter(|f| f.severity == Severity::Info)
+            .count();
         (c, h, m, l, i)
     }
 }

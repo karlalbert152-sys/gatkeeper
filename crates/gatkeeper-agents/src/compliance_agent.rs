@@ -92,7 +92,9 @@ fn check_logging(path: &str, source: &str) -> Vec<Finding> {
     for (i, line) in source.lines().enumerate() {
         let line_num = i as u32 + 1;
 
-        if line.contains("password") && (line.contains("log") || line.contains("print") || line.contains("debug")) {
+        if line.contains("password")
+            && (line.contains("log") || line.contains("print") || line.contains("debug"))
+        {
             findings.push(
                 Finding::new(
                     "ComplianceAgent",
@@ -124,7 +126,10 @@ fn check_error_handling_compliance(path: &str, source: &str) -> Vec<Finding> {
                 .take(3)
                 .collect::<Vec<_>>()
                 .join("\n");
-            if next_lines.trim().is_empty() || next_lines.contains("pass") || next_lines.contains("// ignore") {
+            if next_lines.trim().is_empty()
+                || next_lines.contains("pass")
+                || next_lines.contains("// ignore")
+            {
                 findings.push(
                     Finding::new(
                         "ComplianceAgent",

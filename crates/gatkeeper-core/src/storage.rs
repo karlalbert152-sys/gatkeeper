@@ -1,7 +1,7 @@
-use rusqlite::{Connection, params};
 use crate::finding::{Finding, Severity};
-use crate::scan::ScanResult;
 use crate::risk::RiskScore;
+use crate::scan::ScanResult;
+use rusqlite::{params, Connection};
 use std::path::Path;
 
 pub struct Store {
@@ -67,11 +67,14 @@ impl Store {
     }
 
     pub fn ensure_project(&self, name: &str, root_path: &str) -> Result<i64, StorageError> {
-        let existing: Option<i64> = self.conn.query_row(
-            "SELECT id FROM projects WHERE root_path = ?1",
-            params![root_path],
-            |row| row.get(0),
-        ).ok();
+        let existing: Option<i64> = self
+            .conn
+            .query_row(
+                "SELECT id FROM projects WHERE root_path = ?1",
+                params![root_path],
+                |row| row.get(0),
+            )
+            .ok();
 
         if let Some(id) = existing {
             self.conn.execute(
@@ -141,91 +144,107 @@ impl Store {
              FROM scans WHERE project_id = ?1 ORDER BY id DESC LIMIT 1",
         )?;
 
-        let row = stmt.query_row(params![project_id], |row| {
-            let scan_id: i64 = row.get(0)?;
-            let timestamp: String = row.get(1)?;
-            let duration_ms: u64 = row.get(2)?;
-            let files_analyzed: u32 = row.get(3)?;
-            let lines_analyzed: i64 = row.get(4)?;
-            let agents_json: String = row.get(5)?;
-            let global: u32 = row.get(6)?;
-            let security: u32 = row.get(7)?;
-            let performance: u32 = row.get(8)?;
-            let compliance: u32 = row.get(9)?;
+        let row = stmt
+            .query_row(params![project_id], |row| {
+                let scan_id: i64 = row.get(0)?;
+                let timestamp: String = row.get(1)?;
+                let duration_ms: u64 = row.get(2)?;
+                let files_analyzed: u32 = row.get(3)?;
+                let lines_analyzed: i64 = row.get(4)?;
+                let agents_json: String = row.get(5)?;
+                let global: u32 = row.get(6)?;
+                let security: u32 = row.get(7)?;
+                let performance: u32 = row.get(8)?;
+                let compliance: u32 = row.get(9)?;
 
-            let agents_used: Vec<String> = serde_json::from_str(&agents_json).unwrap_or_default();
+                let agents_used: Vec<String> =
+                    serde_json::from_str(&agents_json).unwrap_or_default();
 
-            let mut fstmt = self.conn.prepare(
-                "SELECT finding_id, agent, severity, file, line_start, line_end, finding_type,
+                let mut fstmt = self.conn.prepare(
+                    "SELECT finding_id, agent, severity, file, line_start, line_end, finding_type,
                  cvss_score, description, correction, effort_correction
                  FROM findings WHERE scan_id = ?1",
-            )?;
+                )?;
 
-            let findings = fstmt.query_map(params![scan_id], |frow| {
-                let sev_str: String = frow.get(2)?;
-                let severity = match sev_str.as_str() {
-                    "CRITICAL" => Severity::Critical,
-                    "HIGH" => Severity::High,
-                    "MEDIUM" => Severity::Medium,
-                    "LOW" => Severity::Low,
-                    _ => Severity::Info,
-                };
-                Ok(Finding {
-                    id: frow.get(0)?,
-                    agent: frow.get(1)?,
-                    severity,
-                    file: frow.get(3)?,
-                    line_start: frow.get(4)?,
-                    line_end: frow.get(5)?,
-                    finding_type: frow.get(6)?,
-                    cvss_score: frow.get(7)?,
-                    description: frow.get(8)?,
-                    correction: frow.get(9)?,
-                    effort_correction: frow.get(10)?,
+                let findings = fstmt
+                    .query_map(params![scan_id], |frow| {
+                        let sev_str: String = frow.get(2)?;
+                        let severity = match sev_str.as_str() {
+                            "CRITICAL" => Severity::Critical,
+                            "HIGH" => Severity::High,
+                            "MEDIUM" => Severity::Medium,
+                            "LOW" => Severity::Low,
+                            _ => Severity::Info,
+                        };
+                        Ok(Finding {
+                            id: frow.get(0)?,
+                            agent: frow.get(1)?,
+                            severity,
+                            file: frow.get(3)?,
+                            line_start: frow.get(4)?,
+                            line_end: frow.get(5)?,
+                            finding_type: frow.get(6)?,
+                            cvss_score: frow.get(7)?,
+                            description: frow.get(8)?,
+                            correction: frow.get(9)?,
+                            effort_correction: frow.get(10)?,
+                        })
+                    })?
+                    .collect::<Result<Vec<_>, _>>()?;
+
+                Ok(ScanResult {
+                    project_name: String::new(),
+                    timestamp,
+                    duration_ms,
+                    files_analyzed,
+                    lines_analyzed: lines_analyzed as u64,
+                    agents_used,
+                    findings,
+                    risk_score: RiskScore {
+                        global,
+                        security,
+                        performance,
+                        compliance,
+                        tendency: "stable".to_string(),
+                    },
                 })
-            })?.collect::<Result<Vec<_>, _>>()?;
-
-            Ok(ScanResult {
-                project_name: String::new(),
-                timestamp,
-                duration_ms,
-                files_analyzed,
-                lines_analyzed: lines_analyzed as u64,
-                agents_used,
-                findings,
-                risk_score: RiskScore {
-                    global,
-                    security,
-                    performance,
-                    compliance,
-                    tendency: "stable".to_string(),
-                },
             })
-        }).ok();
+            .ok();
 
         Ok(row)
     }
 
-    pub fn get_scan_history(&self, project_id: i64, limit: u32) -> Result<Vec<(i64, String, u32)>, StorageError> {
+    pub fn get_scan_history(
+        &self,
+        project_id: i64,
+        limit: u32,
+    ) -> Result<Vec<(i64, String, u32)>, StorageError> {
         let mut stmt = self.conn.prepare(
             "SELECT id, timestamp, risk_score_global FROM scans WHERE project_id = ?1 ORDER BY id DESC LIMIT ?2",
         )?;
 
-        let rows = stmt.query_map(params![project_id, limit], |row| {
-            Ok((row.get(0)?, row.get(1)?, row.get(2)?))
-        })?.collect::<Result<Vec<_>, _>>()?;
+        let rows = stmt
+            .query_map(params![project_id, limit], |row| {
+                Ok((row.get(0)?, row.get(1)?, row.get(2)?))
+            })?
+            .collect::<Result<Vec<_>, _>>()?;
 
         Ok(rows)
     }
 
-    pub fn get_findings_by_severity(&self, scan_id: i64) -> Result<Vec<(String, u32)>, StorageError> {
+    pub fn get_findings_by_severity(
+        &self,
+        scan_id: i64,
+    ) -> Result<Vec<(String, u32)>, StorageError> {
         let mut stmt = self.conn.prepare(
             "SELECT severity, COUNT(*) FROM findings WHERE scan_id = ?1 GROUP BY severity ORDER BY COUNT(*) DESC",
         )?;
 
-        let rows = stmt.query_map(params![scan_id], |row| {
-            Ok((row.get(0)?, row.get::<_, u32>(1)?))
-        })?.collect::<Result<Vec<_>, _>>()?;
+        let rows = stmt
+            .query_map(params![scan_id], |row| {
+                Ok((row.get(0)?, row.get::<_, u32>(1)?))
+            })?
+            .collect::<Result<Vec<_>, _>>()?;
 
         Ok(rows)
     }

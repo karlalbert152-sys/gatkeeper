@@ -27,8 +27,12 @@ impl PatternDetector {
 
 fn detect_mvc(files: &[String]) -> Vec<DetectedPattern> {
     let has_models = files.iter().any(|f| f.contains("model"));
-    let has_views = files.iter().any(|f| f.contains("view") || f.contains("template"));
-    let has_controllers = files.iter().any(|f| f.contains("controller") || f.contains("handler"));
+    let has_views = files
+        .iter()
+        .any(|f| f.contains("view") || f.contains("template"));
+    let has_controllers = files
+        .iter()
+        .any(|f| f.contains("controller") || f.contains("handler"));
 
     if has_models && has_views && has_controllers {
         vec![DetectedPattern {

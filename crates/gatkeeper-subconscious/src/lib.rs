@@ -1,5 +1,5 @@
-pub mod rouge;
 pub mod jaune;
+pub mod rouge;
 pub mod verte;
 
 use gatkeeper_core::finding::Finding;

@@ -34,21 +34,26 @@ fn check_injection_patterns(path: &str, source: &str) -> Vec<Finding> {
     for (i, line) in source.lines().enumerate() {
         let line_num = i as u32 + 1;
 
-        if line.contains("format!(") && line.contains("{}")
-            && (line.contains("execute") || line.contains("query") || line.contains("exec")) {
-                findings.push(
-                    Finding::new(
-                        "SecurityAgent",
-                        Severity::Critical,
-                        path,
-                        "sql_injection",
-                        "Potential SQL injection via format string",
-                    )
-                    .with_lines(line_num, line_num)
-                    .with_cvss(9.8)
-                    .with_correction("Use parameterized queries instead of format strings", "30 minutes"),
-                );
-            }
+        if line.contains("format!(")
+            && line.contains("{}")
+            && (line.contains("execute") || line.contains("query") || line.contains("exec"))
+        {
+            findings.push(
+                Finding::new(
+                    "SecurityAgent",
+                    Severity::Critical,
+                    path,
+                    "sql_injection",
+                    "Potential SQL injection via format string",
+                )
+                .with_lines(line_num, line_num)
+                .with_cvss(9.8)
+                .with_correction(
+                    "Use parameterized queries instead of format strings",
+                    "30 minutes",
+                ),
+            );
+        }
 
         if line.contains("eval(") || line.contains("exec(") {
             findings.push(
@@ -61,7 +66,10 @@ fn check_injection_patterns(path: &str, source: &str) -> Vec<Finding> {
                 )
                 .with_lines(line_num, line_num)
                 .with_cvss(9.0)
-                .with_correction("Avoid dynamic code execution, use safe alternatives", "1 hour"),
+                .with_correction(
+                    "Avoid dynamic code execution, use safe alternatives",
+                    "1 hour",
+                ),
             );
         }
 
@@ -120,21 +128,25 @@ fn check_crypto_weaknesses(path: &str, source: &str) -> Vec<Finding> {
             );
         }
 
-        if line.contains("rand::thread_rng") && !line.contains("OsRng")
-            && (source.contains("password") || source.contains("secret") || source.contains("token")) {
-                findings.push(
-                    Finding::new(
-                        "SecurityAgent",
-                        Severity::High,
-                        path,
-                        "weak_random",
-                        "Non-cryptographic RNG used for security-sensitive value",
-                    )
-                    .with_lines(line_num, line_num)
-                    .with_cvss(6.5)
-                    .with_correction("Use OsRng or a CSPRNG for security contexts", "30 minutes"),
-                );
-            }
+        if line.contains("rand::thread_rng")
+            && !line.contains("OsRng")
+            && (source.contains("password")
+                || source.contains("secret")
+                || source.contains("token"))
+        {
+            findings.push(
+                Finding::new(
+                    "SecurityAgent",
+                    Severity::High,
+                    path,
+                    "weak_random",
+                    "Non-cryptographic RNG used for security-sensitive value",
+                )
+                .with_lines(line_num, line_num)
+                .with_cvss(6.5)
+                .with_correction("Use OsRng or a CSPRNG for security contexts", "30 minutes"),
+            );
+        }
     }
 
     findings
@@ -157,7 +169,10 @@ fn check_auth_issues(path: &str, source: &str) -> Vec<Finding> {
                 )
                 .with_lines(line_num, line_num)
                 .with_cvss(7.5)
-                .with_correction("Use constant-time comparison (e.g. subtle::ConstantTimeEq)", "1 hour"),
+                .with_correction(
+                    "Use constant-time comparison (e.g. subtle::ConstantTimeEq)",
+                    "1 hour",
+                ),
             );
         }
 
@@ -201,7 +216,10 @@ fn check_memory_safety(path: &str, source: &str) -> Vec<Finding> {
                 )
                 .with_lines(line_num, line_num)
                 .with_cvss(4.0)
-                .with_correction("Audit unsafe block, minimize scope, add safety comments", "1 hour"),
+                .with_correction(
+                    "Audit unsafe block, minimize scope, add safety comments",
+                    "1 hour",
+                ),
             );
         }
 
@@ -216,7 +234,10 @@ fn check_memory_safety(path: &str, source: &str) -> Vec<Finding> {
                 )
                 .with_lines(line_num, line_num)
                 .with_cvss(7.0)
-                .with_correction("Replace transmute with safe alternatives (From/Into)", "2 hours"),
+                .with_correction(
+                    "Replace transmute with safe alternatives (From/Into)",
+                    "2 hours",
+                ),
             );
         }
     }

@@ -1,5 +1,5 @@
 use gatkeeper_core::GatKeeperConfig;
-use gatkeeper_dna::{DnaFingerprint, PatternDetector, InvariantExtractor};
+use gatkeeper_dna::{DnaFingerprint, InvariantExtractor, PatternDetector};
 use std::path::Path;
 
 pub fn execute(project_root: &Path) -> anyhow::Result<()> {

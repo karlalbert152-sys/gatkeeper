@@ -52,7 +52,10 @@ fn test_performance_agent_finds_clone_in_loop() {
 
     let parsed = parse_file(&file).unwrap();
     let agents = all_agents();
-    let perf = agents.iter().find(|a| a.name() == "PerformanceAgent").unwrap();
+    let perf = agents
+        .iter()
+        .find(|a| a.name() == "PerformanceAgent")
+        .unwrap();
     let findings = perf.analyze(&[parsed]);
     assert!(!findings.is_empty());
 

@@ -1,6 +1,6 @@
+use gatkeeper_agents::all_agents;
 use gatkeeper_core::{GatKeeperConfig, RiskScore, Store};
 use gatkeeper_parser::parse_file;
-use gatkeeper_agents::all_agents;
 use gatkeeper_subconscious::SubconsciousEngine;
 use std::path::Path;
 use std::time::Instant;
@@ -58,10 +58,7 @@ pub async fn execute(
 
     let duration = start.elapsed();
     println!();
-    println!(
-        "Scan complete in {}ms",
-        duration.as_millis()
-    );
+    println!("Scan complete in {}ms", duration.as_millis());
     println!("  Files analyzed: {}", parsed_files.len());
     println!("  Lines analyzed: {}", total_lines);
     println!("  Findings: {}", all_findings.len());
@@ -77,7 +74,10 @@ pub async fn execute(
             gatkeeper_core::finding::Severity::Low,
             gatkeeper_core::finding::Severity::Info,
         ] {
-            let count = all_findings.iter().filter(|f| f.severity == *severity).count();
+            let count = all_findings
+                .iter()
+                .filter(|f| f.severity == *severity)
+                .count();
             if count > 0 {
                 println!("  {}: {}", severity.label(), count);
             }

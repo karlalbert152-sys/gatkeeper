@@ -1,8 +1,8 @@
-pub mod security_agent;
+pub mod compliance_agent;
 pub mod logic_agent;
 pub mod performance_agent;
-pub mod compliance_agent;
 pub mod secret_agent;
+pub mod security_agent;
 pub mod supply_chain_agent;
 
 use gatkeeper_core::finding::Finding;

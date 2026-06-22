@@ -1,4 +1,4 @@
-use gatkeeper_dna::{DnaFingerprint, PatternDetector, InvariantExtractor};
+use gatkeeper_dna::{DnaFingerprint, InvariantExtractor, PatternDetector};
 use std::path::Path;
 
 #[test]
@@ -59,7 +59,11 @@ fn test_pattern_detection() {
 fn test_invariant_extraction() {
     let dir = std::env::temp_dir().join("gatkeeper_test_inv");
     std::fs::create_dir_all(&dir).unwrap();
-    std::fs::write(dir.join("main.rs"), "pub fn do_thing() -> Result<(), Error> { Ok(()) }").unwrap();
+    std::fs::write(
+        dir.join("main.rs"),
+        "pub fn do_thing() -> Result<(), Error> { Ok(()) }",
+    )
+    .unwrap();
 
     let invariants = InvariantExtractor::extract(&dir);
     assert!(invariants.iter().any(|i| i.name == "Error propagation"));

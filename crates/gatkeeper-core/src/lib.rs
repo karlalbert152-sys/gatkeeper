@@ -10,4 +10,4 @@ pub use finding::{Finding, Severity};
 pub use report::GatReport;
 pub use risk::RiskScore;
 pub use scan::ScanResult;
-pub use storage::{Store, StorageError};
+pub use storage::{StorageError, Store};

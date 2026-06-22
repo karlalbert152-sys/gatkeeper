@@ -42,25 +42,34 @@ impl VerteLayer {
         let has_unused_imports = findings.iter().any(|f| f.finding_type.contains("unused"));
         if has_unused_imports {
             intuitions.push(
-                "Nettoyage possible: imports/fonctions inutilisés détectés — dette technique".to_string(),
+                "Nettoyage possible: imports/fonctions inutilisés détectés — dette technique"
+                    .to_string(),
             );
         }
 
         let has_todo = findings.iter().any(|f| f.finding_type.contains("todo"));
         if has_todo {
             intuitions.push(
-                "TODO markers: travail incomplet — prioriser avant la prochaine release".to_string(),
+                "TODO markers: travail incomplet — prioriser avant la prochaine release"
+                    .to_string(),
             );
         }
 
         if findings.is_empty() {
             intuitions.push(
-                "Aucun finding détecté — le code est dans un état sain, maintenir la discipline".to_string(),
+                "Aucun finding détecté — le code est dans un état sain, maintenir la discipline"
+                    .to_string(),
             );
         }
 
-        let security_count = findings.iter().filter(|f| f.agent == "SecurityAgent").count();
-        let perf_count = findings.iter().filter(|f| f.agent == "PerformanceAgent").count();
+        let security_count = findings
+            .iter()
+            .filter(|f| f.agent == "SecurityAgent")
+            .count();
+        let perf_count = findings
+            .iter()
+            .filter(|f| f.agent == "PerformanceAgent")
+            .count();
 
         if security_count > 0 && perf_count > 0 {
             intuitions.push(

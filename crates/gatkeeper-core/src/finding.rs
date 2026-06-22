@@ -61,11 +61,7 @@ impl Finding {
         finding_type: &str,
         description: &str,
     ) -> Self {
-        let id = format!(
-            "GAT-{}-{:04}",
-            severity.label(),
-            rand_id()
-        );
+        let id = format!("GAT-{}-{:04}", severity.label(), rand_id());
         Self {
             id,
             agent: agent.to_string(),

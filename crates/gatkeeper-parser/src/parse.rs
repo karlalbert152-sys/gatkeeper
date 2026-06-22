@@ -1,5 +1,5 @@
-use tree_sitter::Parser;
 use std::path::Path;
+use tree_sitter::Parser;
 
 #[derive(Debug, Clone)]
 pub struct ParsedFile {
@@ -61,9 +61,9 @@ pub fn parse_file(path: &Path) -> Result<ParsedFile, ParseError> {
         .set_language(&lang)
         .map_err(|e| ParseError::TreeSitter(path.display().to_string(), e.to_string()))?;
 
-    let tree = parser
-        .parse(&source, None)
-        .ok_or_else(|| ParseError::TreeSitter(path.display().to_string(), "parse failed".to_string()))?;
+    let tree = parser.parse(&source, None).ok_or_else(|| {
+        ParseError::TreeSitter(path.display().to_string(), "parse failed".to_string())
+    })?;
 
     let root = tree.root_node();
     let mut functions = Vec::new();
@@ -106,8 +106,7 @@ fn extract_functions(node: tree_sitter::Node, source: &str, out: &mut Vec<Functi
         let start_line = node.start_position().row as u32 + 1;
         let end_line = node.end_position().row as u32 + 1;
 
-        let is_public = source[node.start_byte()..node.end_byte()]
-            .contains("pub ");
+        let is_public = source[node.start_byte()..node.end_byte()].contains("pub ");
 
         out.push(FunctionInfo {
             name,

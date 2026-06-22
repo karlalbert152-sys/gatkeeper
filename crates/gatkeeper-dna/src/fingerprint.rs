@@ -1,4 +1,4 @@
-use sha2::{Sha256, Digest};
+use sha2::{Digest, Sha256};
 use std::path::Path;
 
 #[derive(Debug, Clone)]
@@ -57,8 +57,7 @@ impl DnaFingerprint {
         let mut removed = Vec::new();
         let mut modified = Vec::new();
 
-        let self_map: std::collections::HashMap<_, _> =
-            self.file_hashes.iter().cloned().collect();
+        let self_map: std::collections::HashMap<_, _> = self.file_hashes.iter().cloned().collect();
         let other_map: std::collections::HashMap<_, _> =
             other.file_hashes.iter().cloned().collect();
 
@@ -99,7 +98,10 @@ pub struct FingerprintDiff {
 
 impl FingerprintDiff {
     pub fn has_changes(&self) -> bool {
-        self.root_hash_changed || !self.added.is_empty() || !self.removed.is_empty() || !self.modified.is_empty()
+        self.root_hash_changed
+            || !self.added.is_empty()
+            || !self.removed.is_empty()
+            || !self.modified.is_empty()
     }
 
     pub fn summary(&self) -> String {
@@ -124,7 +126,11 @@ fn collect_source_files(root: &Path) -> Result<Vec<std::path::PathBuf>, std::io:
                 let path = entry.path();
                 if path.is_dir() {
                     let name = path.file_name().unwrap_or_default().to_string_lossy();
-                    if !name.starts_with('.') && name != "target" && name != "node_modules" && name != "vendor" {
+                    if !name.starts_with('.')
+                        && name != "target"
+                        && name != "node_modules"
+                        && name != "vendor"
+                    {
                         stack.push(path);
                     }
                 } else if let Some(ext) = path.extension().and_then(|e| e.to_str()) {

@@ -31,14 +31,18 @@ impl Agent for LogicAgent {
 fn check_deadlocks(path: &str, source: &str) -> Vec<Finding> {
     let mut findings = Vec::new();
     let has_mutex = source.contains("Mutex") || source.contains("RwLock");
-    let has_lock = source.contains(".lock()") || source.contains(".read()") || source.contains(".write()");
+    let has_lock =
+        source.contains(".lock()") || source.contains(".read()") || source.contains(".write()");
 
     if has_mutex && has_lock {
-        let nested_locks = source.matches(".lock()").count() + source.matches(".read()").count() + source.matches(".write()").count();
+        let nested_locks = source.matches(".lock()").count()
+            + source.matches(".read()").count()
+            + source.matches(".write()").count();
         if nested_locks > 2 {
             for (i, line) in source.lines().enumerate() {
                 let line_num = i as u32 + 1;
-                if line.contains(".lock()") || line.contains(".read()") || line.contains(".write()") {
+                if line.contains(".lock()") || line.contains(".read()") || line.contains(".write()")
+                {
                     findings.push(
                         Finding::new(
                             "LogicAgent",

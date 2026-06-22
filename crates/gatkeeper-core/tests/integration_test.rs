@@ -1,8 +1,14 @@
-use gatkeeper_core::{Finding, RiskScore, Severity, GatReport, GatKeeperConfig};
+use gatkeeper_core::{Finding, GatKeeperConfig, GatReport, RiskScore, Severity};
 
 #[test]
 fn test_finding_creation() {
-    let f = Finding::new("SecurityAgent", Severity::Critical, "src/main.rs", "test", "test desc");
+    let f = Finding::new(
+        "SecurityAgent",
+        Severity::Critical,
+        "src/main.rs",
+        "test",
+        "test desc",
+    );
     assert_eq!(f.agent, "SecurityAgent");
     assert_eq!(f.severity, Severity::Critical);
     assert!(f.id.starts_with("GAT-CRITICAL-"));
@@ -10,8 +16,7 @@ fn test_finding_creation() {
 
 #[test]
 fn test_finding_with_lines() {
-    let f = Finding::new("Agent", Severity::High, "file.rs", "type", "desc")
-        .with_lines(10, 20);
+    let f = Finding::new("Agent", Severity::High, "file.rs", "type", "desc").with_lines(10, 20);
     assert_eq!(f.line_start, Some(10));
     assert_eq!(f.line_end, Some(20));
 }
@@ -36,7 +41,13 @@ fn test_risk_score_critical_findings() {
 
 #[test]
 fn test_risk_score_tendency() {
-    let prev = RiskScore { global: 80, security: 80, performance: 80, compliance: 80, tendency: "stable".to_string() };
+    let prev = RiskScore {
+        global: 80,
+        security: 80,
+        performance: 80,
+        compliance: 80,
+        tendency: "stable".to_string(),
+    };
     let findings = vec![
         Finding::new("SecurityAgent", Severity::Critical, "f.rs", "type", "desc"),
         Finding::new("SecurityAgent", Severity::Critical, "f.rs", "type", "desc"),

@@ -65,16 +65,11 @@ enum Commands {
 async fn main() -> anyhow::Result<()> {
     let cli = Cli::parse();
 
-    let filter = if cli.verbose {
-        "debug"
-    } else {
-        "info"
-    };
+    let filter = if cli.verbose { "debug" } else { "info" };
 
     tracing_subscriber::fmt()
         .with_env_filter(
-            tracing_subscriber::EnvFilter::try_from_default_env()
-                .unwrap_or_else(|_| filter.into()),
+            tracing_subscriber::EnvFilter::try_from_default_env().unwrap_or_else(|_| filter.into()),
         )
         .init();
 
@@ -84,8 +79,9 @@ async fn main() -> anyhow::Result<()> {
         Commands::Report { format, path } => commands::report::execute(&path, &format),
         Commands::Status { path } => commands::status::execute(&path),
         Commands::Dna { path } => commands::dna::execute(&path),
-        Commands::Subconscious { path, projection_hours } => {
-            commands::subconscious::execute(&path, projection_hours)
-        }
+        Commands::Subconscious {
+            path,
+            projection_hours,
+        } => commands::subconscious::execute(&path, projection_hours),
     }
 }

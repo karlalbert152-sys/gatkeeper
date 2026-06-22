@@ -58,27 +58,32 @@ impl JauneLayer {
             });
         }
 
-        let has_n_plus_one = findings.iter().any(|f| f.finding_type.contains("n_plus_one"));
+        let has_n_plus_one = findings
+            .iter()
+            .any(|f| f.finding_type.contains("n_plus_one"));
         if has_n_plus_one {
             intuitions.push(
-                "Point de chaos: N+1 queries — sous charge, la base de données sera le goulot".to_string(),
+                "Point de chaos: N+1 queries — sous charge, la base de données sera le goulot"
+                    .to_string(),
             );
         }
 
         let has_memory = findings.iter().any(|f| {
-            f.finding_type.contains("memory") || f.finding_type.contains("leak") || f.finding_type.contains("allocation")
+            f.finding_type.contains("memory")
+                || f.finding_type.contains("leak")
+                || f.finding_type.contains("allocation")
         });
         if has_memory {
             intuitions.push(
-                "Risque mémoire: fuites détectées — OOM probable en production prolongée".to_string(),
+                "Risque mémoire: fuites détectées — OOM probable en production prolongée"
+                    .to_string(),
             );
         }
 
         let has_deadlock = findings.iter().any(|f| f.finding_type.contains("deadlock"));
         if has_deadlock {
-            intuitions.push(
-                "Deadlock potentielt: vérifier l'ordre d'acquisition des locks".to_string(),
-            );
+            intuitions
+                .push("Deadlock potentielt: vérifier l'ordre d'acquisition des locks".to_string());
         }
 
         LayerResult {
