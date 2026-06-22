@@ -1,0 +1,15 @@
+[package]
+name = "gatkeeper-agents"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "6 specialized AI security analysis agents"
+
+[dependencies]
+gatkeeper-core = { path = "../gatkeeper-core" }
+gatkeeper-parser = { path = "../gatkeeper-parser" }
+serde.workspace = true
+serde_json.workspace = true
+regex = "1"
+tracing.workspace = true
+chrono.workspace = true

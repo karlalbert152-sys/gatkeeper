@@ -1,0 +1,39 @@
+# GatKeeper Configuration Template
+# Copy this file to gatkeeper.toml in your project root
+
+[project]
+name = "my-project"
+version = "0.1.0"
+
+[scan]
+agents = ["security", "logic", "performance", "compliance", "secrets", "supply_chain"]
+languages = ["rust", "python", "javascript", "c", "go"]
+max_depth = 50
+
+[risk]
+critical_threshold = 90
+high_threshold = 70
+medium_threshold = 40
+block_merge_below = 60
+
+[subconscious]
+enabled = true
+cycle = "hourly"          # hourly | daily | weekly
+projection_hours = 24     # 24 | 168 (7 days) | 720 (30 days)
+
+[output]
+format = "gat"            # gat | json | html
+directory = ".gatkeeper"
+
+[agents.security]
+enabled = true
+depth = "standard"        # standard | deep | exhaustive
+
+[agents.secrets]
+enabled = true
+custom_patterns = []      # Add custom regex patterns for secret detection
+
+[agents.supply_chain]
+enabled = true
+check_licenses = true
+check_abandoned = true

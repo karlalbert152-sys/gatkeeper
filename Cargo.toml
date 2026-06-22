@@ -1,0 +1,32 @@
+[workspace]
+resolver = "2"
+members = [
+    "crates/gatkeeper-core",
+    "crates/gatkeeper-cli",
+    "crates/gatkeeper-parser",
+    "crates/gatkeeper-agents",
+    "crates/gatkeeper-dna",
+    "crates/gatkeeper-subconscious",
+]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+license = "AGPL-3.0-only"
+authors = ["GatKeeper Contributors"]
+repository = "https://github.com/karlalbert152-sys/gatkeeper"
+description = "AI-Native Security Intelligence Platform"
+
+[workspace.dependencies]
+tokio = { version = "1", features = ["full"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+toml = "0.8"
+thiserror = "2"
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+chrono = { version = "0.4", features = ["serde"] }
+sha2 = "0.10"
+glob = "0.3"
+anyhow = "1"
+rusqlite = { version = "0.31", features = ["bundled"] }

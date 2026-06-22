@@ -1,0 +1,19 @@
+[package]
+name = "gatkeeper-parser"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "Tree-sitter multi-language parser for GatKeeper"
+
+[dependencies]
+gatkeeper-core = { path = "../gatkeeper-core" }
+tree-sitter = "0.23"
+tree-sitter-rust = "0.23"
+tree-sitter-python = "0.23"
+tree-sitter-javascript = "0.23"
+tree-sitter-c = "0.23"
+tree-sitter-go = "0.23"
+serde.workspace = true
+thiserror.workspace = true
+glob.workspace = true
+tracing.workspace = true
